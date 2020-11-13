@@ -29,7 +29,7 @@ class complex_Dense(tf.keras.layers.Layer):
                         kernel_constraint    = None, 
                         bias_constraint      = None):
         
-        super(complex_Dense, self).__init__()
+        super(complex_Dense, self).__init__()                  
 
         self.units = units
         self.activation = activation
@@ -72,7 +72,7 @@ class complex_Dense(tf.keras.layers.Layer):
 
     def call (self, real_inputs, imag_inputs):
 
-        real_outputs = self.real_Dense(real_inputs) - self.imag_Dense(imag_inputs)
+        real_outputs = self.real_Dense(real_inputs) - self.imag_Dense(imag_inputs)      #W*h = (A*x-B*y) + i(B*x+A*y)
         imag_outputs = self.imag_Dense(real_inputs) + self.real_Dense(imag_inputs)
 
         return real_outputs, imag_outputs
