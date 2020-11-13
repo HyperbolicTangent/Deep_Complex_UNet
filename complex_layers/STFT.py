@@ -55,8 +55,8 @@ class STFT_network (tf.keras.layers.Layer):
         self.over_lapping  = over_lapping
         self.padding = padding
         
-        self.fourier_basis = np.fft.fft(np.eye(self.window_length))
-        self.discrete_fourier_transform_window = scipy.signal.hann(self.window_length, sym = False)
+        self.fourier_basis = np.fft.fft(np.eye(self.window_length))             # 1024 orthogonal basis
+        self.discrete_fourier_transform_window = scipy.signal.hann(self.window_length, sym = False)    # return number of window_length 1d array
         self.discrete_fourier_transform_window = self.discrete_fourier_transform_window.reshape((1, -1))
         
         self.kernel = np.multiply(self.fourier_basis, self.discrete_fourier_transform_window)
