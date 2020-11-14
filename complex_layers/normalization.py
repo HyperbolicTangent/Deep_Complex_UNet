@@ -12,7 +12,7 @@ import tensorflow.keras.backend as K
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 DEFINE NAIVE BATCH NORMALIZATION
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-class complex_NaiveBatchNormalization (tf.keras.layers.Layer):
+class complex_NaiveBatchNormalization (tf.keras.layers.Layer):                # batch normalization real part and imaginary part separately
     '''
     tf.keras.layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True,
                                         beta_initializer='zeros', gamma_initializer='ones',
