@@ -204,17 +204,17 @@ def complex_standardization(input_centred, Vrr, Vii, Vri, layernorm = False, axi
     
     variances_broadcast는 채널의 갯수에 의존
     """
-    ndim      = K.ndim(input_centred) 
-    input_dim = K.shape(input_centred)[axis] // 2
+    ndim      = K.ndim(input_centred)                           # number of dimension = 4
+    input_dim = K.shape(input_centred)[axis] // 2               # divide the last dimension of input to real and imaginary part [2,256,32,16], input_dim=8
 
-    variances_broadcast = [1] * ndim
-    variances_broadcast[axis] = input_dim
+    variances_broadcast = [1] * ndim                            # [1,1,1,1]
+    variances_broadcast[axis] = input_dim                       # [1,1,1,8]
 
     if layernorm:
-        variances_broadcast[0] = K.shape(input_centred)[0]
+        variances_broadcast[0] = K.shape(input_centred)[0]      # [2,1,1,8]
 
-    tau   = Vrr + Vii
-    delta = (Vrr * Vii) - (Vri ** 2)
+    tau   = Vrr + Vii                                           # tao = trace of matrix V
+    delta = (Vrr * Vii) - (Vri ** 2)  # delta is determinant of V
 
     s = K.sqrt(delta)
     t = K.sqrt(tau + 2 * s)
@@ -222,7 +222,7 @@ def complex_standardization(input_centred, Vrr, Vii, Vri, layernorm = False, axi
     inverse_st = 1.0 / (s * t)
     Wrr = (Vii + s) * inverse_st
     Wii = (Vrr + s) * inverse_st
-    Wri = -Vri * inverse_st
+    Wri = -Vri * inverse_st    # calculate sqrt of V
 
     broadcast_Wrr = K.reshape(Wrr, variances_broadcast)
     broadcast_Wri = K.reshape(Wri, variances_broadcast)
