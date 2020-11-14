@@ -30,7 +30,7 @@ class Naive_DCUnet16 ():
         real, imag, conv_real7, conv_imag7 = encoder_module(real, imag, 64, (5, 3), (2, 2), training = self.norm_trainig)
         real, imag, _, _                   = encoder_module(real, imag, 64, (5, 3), (2, 1), training = self.norm_trainig)
         center_real1, center_imag1 = decoder_module(real, imag, None, None, 64, (5, 3), (2, 1), training = self.norm_trainig)
-        deconv_real1, deconv_imag1 = decoder_module(center_real1, center_imag1, conv_real7, conv_imag7, 64, (5, 3), (2, 2), training = self.norm_trainig)
+        deconv_real1, deconv_imag1 = decoder_module(center_real1, center_imag1, conv_real7, conv_imag7, 64, (5, 3), (2, 2), training = self.norm_trainig)   #skip connection
         deconv_real1, deconv_imag1 = decoder_module(deconv_real1, deconv_imag1, conv_real6, conv_imag6, 64, (5, 3), (2, 1), training = self.norm_trainig)
         deconv_real1, deconv_imag1 = decoder_module(deconv_real1, deconv_imag1, conv_real5, conv_imag5, 64, (5, 3), (2, 2), training = self.norm_trainig)
         deconv_real1, deconv_imag1 = decoder_module(deconv_real1, deconv_imag1, conv_real4, conv_imag4, 64, (5, 3), (2, 1), training = self.norm_trainig)
@@ -48,7 +48,7 @@ class Naive_DCUnet16 ():
 
 
 
-class Naive_DCUnet20 ():
+class Naive_DCUnet20 ():             # for naive, they use naive batchnormalization
 
     def __init__ (self, input_size = 16384, length = 1023, over_lapping = 256, padding = "same", norm_trainig = True):
 
