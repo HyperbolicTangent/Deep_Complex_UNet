@@ -75,8 +75,8 @@ def transpoed_ISTFT (real, imag):
 def mask_processing (real, imag, stft_real, stft_imag):
     
     magnitude = tf.tanh(tf.sqrt(tf.square(real) + tf.square(imag)))
-    unit_real = tf.divide(real, tf.sqrt(tf.square(real) + tf.square(imag)))
-    unit_imag = tf.divide(imag, tf.sqrt(tf.square(real) + tf.square(imag)))
+    unit_real = tf.divide(real, tf.sqrt(tf.square(real) + tf.square(imag)))               # R/sqrt(R^2+I^2)
+    unit_imag = tf.divide(imag, tf.sqrt(tf.square(real) + tf.square(imag)))               # I/sqrt(R^2+I^2)
 
     mask_real = tf.multiply(magnitude, unit_real)
     mask_imag = tf.multiply(magnitude, unit_imag)
